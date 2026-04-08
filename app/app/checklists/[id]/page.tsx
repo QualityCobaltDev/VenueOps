@@ -26,7 +26,13 @@ export default async function ChecklistDetailPage({ params }: { params: Promise<
       </Card>
 
       <Card className="mt-4">
-        <form action={createChecklistItemAction} className="flex flex-wrap gap-2">
+        <form
+          action={async (formData) => {
+            'use server';
+            await createChecklistItemAction(formData);
+          }}
+          className="flex flex-wrap gap-2"
+        >
           <input type="hidden" name="checklistId" value={checklist.id} />
           <TextInput name="label" placeholder="New item" required className="max-w-sm" />
           <label className="flex items-center gap-2 text-sm text-muted"><input type="checkbox" name="isRequired" defaultChecked /> Required</label>
@@ -43,7 +49,12 @@ export default async function ChecklistDetailPage({ params }: { params: Promise<
                 {item.completedAt ? `Completed ${new Date(item.completedAt).toLocaleString()} by ${item.completedByUser?.fullName ?? 'Unknown'}` : 'Pending'}
               </p>
             </div>
-            <form action={toggleChecklistItemAction}>
+            <form
+              action={async (formData) => {
+                'use server';
+                await toggleChecklistItemAction(formData);
+              }}
+            >
               <input type="hidden" name="itemId" value={item.id} />
               <button className="rounded-md border border-white/20 px-3 py-1 text-sm">{item.completedAt ? 'Undo' : 'Complete'}</button>
             </form>
@@ -51,7 +62,13 @@ export default async function ChecklistDetailPage({ params }: { params: Promise<
         ))}
       </div>
 
-      <form action={archiveChecklistAction} className="mt-6">
+      <form
+        action={async (formData) => {
+          'use server';
+          await archiveChecklistAction(formData);
+        }}
+        className="mt-6"
+      >
         <input type="hidden" name="checklistId" value={checklist.id} />
         <button className="rounded-md border border-red-500/50 px-3 py-2 text-sm text-red-300">Archive Checklist</button>
       </form>

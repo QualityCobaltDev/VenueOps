@@ -11,12 +11,17 @@ export default async function IncidentDetailPage({ params }: { params: Promise<{
   const incident = await prisma.incidentReport.findFirst({ where: { id, venueId: user.venueId, isArchived: false } });
   if (!incident) notFound();
 
-  const submit = updateIncidentAction.bind(null, id);
   return (
     <div>
       <PageHeader title="Incident Details" description="Review and update report information." />
       <Card>
-        <form action={submit} className="space-y-4">
+        <form
+          action={async (formData) => {
+            'use server';
+            await updateIncidentAction(id, formData);
+          }}
+          className="space-y-4"
+        >
           <IncidentFormFields incident={incident} />
           <button className="rounded-md bg-accent px-4 py-2 text-sm">Update report</button>
         </form>

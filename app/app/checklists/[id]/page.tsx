@@ -13,7 +13,7 @@ export default async function ChecklistDetailPage({ params }: { params: Promise<
   });
   if (!checklist) notFound();
 
-  const completed = checklist.items.filter((i) => i.completedAt).length;
+  const completed = checklist.items.filter((i: { completedAt: Date | null }) => i.completedAt).length;
   const progress = checklist.items.length ? Math.round((completed / checklist.items.length) * 100) : 0;
 
   return (

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Route } from 'next';
 import { IncidentCategory, Severity } from '@prisma/client';
 import { prisma } from '@/lib/prisma';
 import { requireUser } from '@/lib/auth';
@@ -32,7 +33,7 @@ export default async function IncidentsPage({ searchParams }: { searchParams: Pr
       </Card>
       <div className="mt-4 space-y-3">
         {incidents.map((i) => (
-          <Link key={i.id} href={`/app/incidents/${i.id}`}>
+          <Link key={i.id} href={`/app/incidents/${i.id}` as Route}>
             <Card className="hover:border-accent/50">
               <div className="flex items-start justify-between gap-3">
                 <div>

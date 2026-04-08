@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { TemplateCategory } from '@prisma/client';
 import { requireUser } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
@@ -36,7 +35,7 @@ export default async function TemplatesPage({ searchParams }: { searchParams: Pr
             <p className="font-medium">{template.title}</p>
             <p className="mt-1 text-sm text-muted">{template.description}</p>
             <p className="mt-2 text-xs text-muted">{template.category.replaceAll('_',' ')}</p>
-            <Link href={template.fileUrl} className="mt-3 inline-flex rounded-md border border-white/20 px-3 py-2 text-sm" target="_blank">Download</Link>
+            <a href={template.fileUrl} className="mt-3 inline-flex rounded-md border border-white/20 px-3 py-2 text-sm" target="_blank" rel="noreferrer">Download</a>
           </Card>
         ))}
       </div>

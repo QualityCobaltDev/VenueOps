@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import type { Route } from 'next';
 import { requireUser } from '@/lib/auth';
 import { signOutAction } from '@/lib/actions';
 
-const nav = [
+const nav: ReadonlyArray<{ href: Route; label: string }> = [
   { href: '/app', label: 'Dashboard' },
   { href: '/app/checklists', label: 'Checklists' },
   { href: '/app/incidents', label: 'Incident Reports' },

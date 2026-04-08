@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Route } from 'next';
 import { ChecklistType } from '@prisma/client';
 import { createChecklistAction } from '@/lib/actions';
 import { prisma } from '@/lib/prisma';
@@ -40,7 +41,7 @@ export default async function ChecklistsPage() {
           const completed = list.items.filter((i) => i.completedAt).length;
           const progress = list.items.length ? Math.round((completed / list.items.length) * 100) : 0;
           return (
-            <Link key={list.id} href={`/app/checklists/${list.id}`}>
+            <Link key={list.id} href={`/app/checklists/${list.id}` as Route}>
               <Card className="hover:border-accent/50">
                 <div className="flex items-center justify-between">
                   <div>

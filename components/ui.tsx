@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Route } from 'next';
 import { cn } from '@/lib/utils';
 
 export function PageHeader({ title, description, action }: { title: string; description?: string; action?: React.ReactNode }) {
@@ -41,6 +42,6 @@ export function Label({ children }: { children: React.ReactNode }) {
   return <label className="mb-1 block text-sm text-white">{children}</label>;
 }
 
-export function LinkButton({ href, children }: { href: string; children: React.ReactNode }) {
+export function LinkButton({ href, children }: { href: Route; children: React.ReactNode }) {
   return <Link href={href} className="inline-flex rounded-md bg-accent px-4 py-2 text-sm font-medium text-white">{children}</Link>;
 }

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import type { Route } from 'next';
 import { prisma } from '@/lib/prisma';
 import { requireUser } from '@/lib/auth';
 import { Card, PageHeader } from '@/components/ui';
@@ -12,7 +13,7 @@ export default async function LogsPage() {
       <PageHeader title="Daily Logs" action={<Link href="/app/logs/new" className="rounded-md bg-accent px-4 py-2 text-sm">Add log</Link>} />
       <div className="space-y-3">
         {logs.map((log) => (
-          <Link key={log.id} href={`/app/logs/${log.id}`}>
+          <Link key={log.id} href={`/app/logs/${log.id}` as Route}>
             <Card className="hover:border-accent/50">
               <div className="flex justify-between gap-3">
                 <div>

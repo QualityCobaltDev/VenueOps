@@ -7,7 +7,13 @@ export default function NewLogPage() {
     <div>
       <PageHeader title="Add Daily Log" />
       <Card>
-        <form action={createDailyLogAction} className="space-y-4">
+        <form
+          action={async (formData) => {
+            'use server';
+            await createDailyLogAction(formData);
+          }}
+          className="space-y-4"
+        >
           <DailyLogFields />
           <button className="rounded-md bg-accent px-4 py-2 text-sm">Save log</button>
         </form>

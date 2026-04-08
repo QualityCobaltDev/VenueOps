@@ -18,7 +18,13 @@ export default async function ChecklistsPage() {
       <PageHeader title="Checklists" description="Build repeatable opening, closing, and cleaning routines." />
       <Card>
         <h2 className="mb-3 font-medium">Create checklist</h2>
-        <form action={createChecklistAction} className="grid gap-3 md:grid-cols-3">
+        <form
+          action={async (formData) => {
+            'use server';
+            await createChecklistAction(formData);
+          }}
+          className="grid gap-3 md:grid-cols-3"
+        >
           <TextInput name="title" placeholder="Checklist title" required />
           <Select name="type" defaultValue={ChecklistType.OPENING}>
             {Object.values(ChecklistType).map((t) => <option key={t} value={t}>{t}</option>)}

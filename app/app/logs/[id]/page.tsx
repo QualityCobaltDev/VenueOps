@@ -11,11 +11,15 @@ export default async function LogDetailPage({ params }: { params: Promise<{ id: 
   const log = await prisma.dailyLog.findFirst({ where: { id, venueId: user.venueId, isArchived: false } });
   if (!log) notFound();
 
+  async function handleUpdate(formData: FormData): Promise<void> {
+    await updateDailyLogAction(id, formData);
+  }
+
   return (
     <div>
       <PageHeader title="Daily Log Detail" />
       <Card>
-        <form action={updateDailyLogAction.bind(null, id)} className="space-y-4">
+        <form action={handleUpdate} className="space-y-4">
           <DailyLogFields log={log} />
           <button className="rounded-md bg-accent px-4 py-2 text-sm">Update log</button>
         </form>

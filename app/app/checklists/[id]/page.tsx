@@ -41,7 +41,7 @@ export default async function ChecklistDetailPage({ params }: { params: Promise<
       </Card>
 
       <div className="mt-4 space-y-2">
-        {checklist.items.map((item) => (
+        {checklist.items.map((item: { id: string; label: string; completedAt: Date | null; completedByUser: { fullName: string | null } | null }) => (
           <Card key={item.id} className="flex items-center justify-between">
             <div>
               <p>{item.label}</p>

@@ -14,28 +14,25 @@ const chunkRecoveryScript = `
   }
 
   var reloadFlagKey = 'venueops_chunk_reload_attempted';
-  var resetDelayMs = 15000;
-
-  var resetReloadFlag = function() {
-    window.setTimeout(function() {
-      window.sessionStorage.removeItem(reloadFlagKey);
-    }, resetDelayMs);
-  };
 
   var shouldRecoverChunkError = function(error) {
     if (!error) {
       return false;
     }
 
+    var message = '';
+
     if (typeof error === 'string') {
-      return error.includes('ChunkLoadError') || error.includes('Loading chunk');
+      message = error;
+    } else if (typeof error.message === 'string') {
+      message = error.message;
     }
 
-    if (typeof error.message === 'string') {
-      return error.message.includes('ChunkLoadError') || error.message.includes('Loading chunk');
+    if (!message) {
+      return false;
     }
 
-    return false;
+    return message.includes('ChunkLoadError') || /Loading chunk\s+\d+/i.test(message);
   };
 
   var recoverFromChunkError = function(error) {
@@ -60,8 +57,6 @@ const chunkRecoveryScript = `
   window.addEventListener('unhandledrejection', function(event) {
     recoverFromChunkError(event.reason);
   });
-
-  resetReloadFlag();
 })();
 `;
 
